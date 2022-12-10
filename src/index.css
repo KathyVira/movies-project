@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+nav {
+  padding: 0 1rem;
+}
+.content {
+  min-height: calc(100vh - 70px - 64px);
+  padding: 1.5rem 0;
+}
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.search-btn {
+  position: absolute;
+  border-radius: 0;
+  top: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  right: 0.5rem;
+}
+.radio-search-types {
+  display: flex;
+  justify-content: space-between;
+}
+[type='radio']:checked + span:after,
+[type='radio'].with-gap:checked + span:before,
+[type='radio'].with-gap:checked + span:after {
+  border: 2px solid #8e24aa;
+  /* background-color: #8e24aa; */
+}
+[type='radio']:checked + span:after,
+[type='radio'].with-gap:checked + span:after {
+  background-color: #8e24aa;
+}
