@@ -1,100 +1,92 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class Search extends React.Component {
-  state = {
-    search: '',
-    type: 'all',
-  }
+const Search = (props) => {
+  const { searchMovies = Function.prototype } = props
 
-  handleKey = (event) => {
+  const [search, setSearch] = useState('')
+  const [type, setType] = useState('')
+
+  const handleKey = (event) => {
     if (event.key === 'Enter') {
-      this.props.searchMovies(this.state.search, this.state.type)
+      searchMovies(search, type)
     }
   }
-  handleFilter = (event) => {
-    this.setState(
-      () => ({ type: event.target.dataset.type }),
-      () => {
-        this.props.searchMovies(this.state.search, this.state.type)
-      },
-    )
+  const handleFilter = (event) => {
+    setType(event.target.dataset.type)
+    searchMovies(search, event.target.dataset.type)
   }
 
-  render() {
-    return (
-      <div className="row">
-        <div className="col s12">
-          <div className="input-field ">
-            <input
-              placeholder="search"
-              id="search"
-              type="search"
-              className="validate "
-              value={this.state.search}
-              onChange={(e) => this.setState({ search: e.target.value })}
-              onKeyDown={this.handleKey}
-            />
-            <label className="hide">Search</label>
-            <button
-              className="btn search-btn purple darken-1"
-              onClick={() =>
-                this.props.searchMovies(this.state.search, this.state.type)
-              }
-            >
-              Search
-            </button>
+  return (
+    <div className="row">
+      <div className="col s12">
+        <div className="input-field ">
+          <input
+            placeholder="search"
+            id="search"
+            type="search"
+            className="validate "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKey}
+          />
+          <label className="hide">Search</label>
+          <button
+            className="btn search-btn purple darken-1"
+            onClick={() => searchMovies(search, type)}
+          >
+            Search
+          </button>
 
-            <div className="radio-search-types">
-              <label>
-                <input
-                  className="with-gap checkbox-purple"
-                  name="type"
-                  type="radio"
-                  data-type="all"
-                  onChange={this.handleFilter}
-                  checked={this.state.type === 'all'}
-                />
-                <span>All</span>
-              </label>
-              <label>
-                <input
-                  className="with-gap checkbox-purple"
-                  name="type"
-                  type="radio"
-                  data-type="movie"
-                  onChange={this.handleFilter}
-                  checked={this.state.type === 'movie'}
-                />
-                <span>Movies only</span>
-              </label>
-              <label>
-                <input
-                  className="with-gap checkbox-purple"
-                  name="type"
-                  type="radio"
-                  data-type="series"
-                  onChange={this.handleFilter}
-                  checked={this.state.type === 'series'}
-                />
-                <span>Series only</span>
-              </label>
-              <label>
-                <input
-                  className="with-gap checkbox-purple"
-                  name="type"
-                  type="radio"
-                  data-type="episode"
-                  onChange={this.handleFilter}
-                  checked={this.state.type === 'episode'}
-                />
-                <span>Episode only</span>
-              </label>
-            </div>
+          <div className="radio-search-types">
+            <label>
+              <input
+                className="with-gap checkbox-purple"
+                name="type"
+                type="radio"
+                data-type="all"
+                onChange={handleFilter}
+                checked={type === 'all'}
+              />
+              <span>All</span>
+            </label>
+            <label>
+              <input
+                className="with-gap checkbox-purple"
+                name="type"
+                type="radio"
+                data-type="movie"
+                onChange={handleFilter}
+                checked={type === 'movie'}
+              />
+              <span>Movies only</span>
+            </label>
+            <label>
+              <input
+                className="with-gap checkbox-purple"
+                name="type"
+                type="radio"
+                data-type="series"
+                onChange={handleFilter}
+                checked={type === 'series'}
+              />
+              <span>Series only</span>
+            </label>
+            <label>
+              <input
+                className="with-gap checkbox-purple"
+                name="type"
+                type="radio"
+                data-type="episode"
+                onChange={handleFilter}
+                checked={type === 'episode'}
+              />
+              <span>Episode only</span>
+            </label>
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export { Search }
